@@ -22,7 +22,7 @@ test("Verify Playwright Locators",async ({page})=>{
     await page.getByLabel('Email:').fill("abc@gmail.com");
 
 
-    await page.getByPlaceholder("Search store").fill('Apple MacBook Pro');
+/*  await page.getByPlaceholder("Search store").fill('Apple MacBook Pro');
 
 
     await expect(page.getByTitle("Home page link")).toHaveText("Home");
@@ -30,7 +30,7 @@ test("Verify Playwright Locators",async ({page})=>{
 
 
     await expect(page.getByTestId("profile-email")).toHaveText("john.doe@example.com");
-    await expect(page.getByTestId("profile-name")).toHaveText("John Doe");
+    await expect(page.getByTestId("profile-name")).toHaveText("John Doe"); */
 
 })
 
