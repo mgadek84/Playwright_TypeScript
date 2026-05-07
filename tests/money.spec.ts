@@ -28,7 +28,7 @@ test.describe('Money Counter App', () => {
 
     if (await input.count() > 0) {
       await input.first().fill('100');
-      await page.waitForTimeout(500);
+      await page.waitForTimeout(600);
 
       await expect(page.locator('body')).toBeVisible();
     }

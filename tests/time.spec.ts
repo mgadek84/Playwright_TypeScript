@@ -7,7 +7,7 @@ test.describe('Time Counter App', () => {
   });
 
   test('should display time counter', async ({ page }) => {
-    // bardziej defensywnie – szukamy czegokolwiek co wygląda jak timer
+
     const counter = page.locator('body');
 
     await expect(counter).toContainText(/\d{1,2}:\d{2}/);
@@ -26,7 +26,7 @@ test.describe('Time Counter App', () => {
   });
 
   test('page loads without crashing', async ({ page }) => {
-    // zamiast title — sprawdzamy czy coś się renderuje
+
     await expect(page.locator('body')).toBeVisible();
   });
 
