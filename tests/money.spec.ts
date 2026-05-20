@@ -1,37 +1,34 @@
 import { test, expect } from '@playwright/test';
+import { openCashBurndown, startCashBurndown } from './helpers/app';
 
-test.describe('Money Counter App', () => {
+test.describe('Cash Burndown', () => {
+  test('shows running cash stats after start', async ({ page }) => {
+    await startCashBurndown(page, '12000');
 
-  test.beforeEach(async ({ page }) => {
-    await page.goto('https://mgadek84.github.io/TimeAndMoney_Counter/');
+    await expect(page.locator('#cashTime')).toContainText(/\d/);
+    await expect(page.locator('#cashSpent')).toContainText(/zł/);
+    await expect(page.locator('#cashRemaining')).toContainText(/zł/);
   });
 
-  test('should display some numeric value', async ({ page }) => {
-    const body = page.locator('body');
-    await expect(body).toContainText(/\d+/);
-  });
+  test('spent amount increases while timer runs', async ({ page }) => {
+    await startCashBurndown(page, '10000');
 
-  test('money value should change over time', async ({ page }) => {
-    const body = page.locator('body');
-
-    const initial = await body.innerText();
+    const spent = page.locator('#cashSpent');
+    const initial = await spent.innerText();
 
     await page.waitForTimeout(1500);
 
-    const updated = await body.innerText();
-
+    const updated = await spent.innerText();
     expect(updated).not.toBe(initial);
   });
 
-  test('input interaction does not break app', async ({ page }) => {
-    const input = page.locator('input');
+  test('monthly budget input accepts values without breaking app', async ({ page }) => {
+    await openCashBurndown(page);
 
-    if (await input.count() > 0) {
-      await input.first().fill('100');
-      await page.waitForTimeout(600);
+    await page.locator('#monthly').fill('7500');
+    await page.getByRole('button', { name: /Start/i }).click();
 
-      await expect(page.locator('body')).toBeVisible();
-    }
+    await expect(page.locator('#cashTime')).toBeVisible();
+    await expect(page.locator('body')).toBeVisible();
   });
-
 });

@@ -1,33 +1,32 @@
 import { test, expect } from '@playwright/test';
+import { openLifeCounter, startLifeCountdown } from './helpers/app';
 
-test.describe('Time Counter App', () => {
+test.describe('Expected Time Left', () => {
+  test('shows life countdown after calculate', async ({ page }) => {
+    await startLifeCountdown(page, '40');
 
-  test.beforeEach(async ({ page }) => {
-    await page.goto('https://mgadek84.github.io/TimeAndMoney_Counter/');
+    const counter = page.locator('#lifeCounter');
+    await expect(counter).toHaveText(/\d{2}:\d{2}:\d{2}:\d{2}:\d{2}:\d{2}/);
+    await expect(page.locator('#yearsLeft')).not.toHaveText('0');
   });
 
-  test('should display time counter', async ({ page }) => {
+  test('countdown ticks every second', async ({ page }) => {
+    await startLifeCountdown(page, '30');
 
-    const counter = page.locator('body');
-
-    await expect(counter).toContainText(/\d{1,2}:\d{2}/);
-  });
-
-  test('time should increase after 1 second', async ({ page }) => {
-    const body = page.locator('body');
-
-    const initial = await body.innerText();
+    const counter = page.locator('#lifeCounter');
+    const initial = await counter.innerText();
 
     await page.waitForTimeout(1200);
 
-    const updated = await body.innerText();
-
+    const updated = await counter.innerText();
     expect(updated).not.toBe(initial);
   });
 
-  test('page loads without crashing', async ({ page }) => {
+  test('life screen loads from menu', async ({ page }) => {
+    await openLifeCounter(page);
 
-    await expect(page.locator('body')).toBeVisible();
+    await expect(page.getByRole('heading', { name: /Expected Time Left/i })).toBeVisible();
+    await expect(page.locator('#age')).toBeVisible();
+    await expect(page.getByRole('button', { name: /Calculate/i })).toBeVisible();
   });
-
 });
