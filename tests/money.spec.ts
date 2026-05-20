@@ -31,4 +31,13 @@ test.describe('Cash Burndown', () => {
     await expect(page.locator('#cashTime')).toBeVisible();
     await expect(page.locator('body')).toBeVisible();
   });
+
+  test('back button returns to home from cash burndown', async ({ page }) => {
+    await openCashBurndown(page);
+    await page.getByRole('button', { name: /Back/i }).click();
+
+    await expect(page.getByRole('heading', { name: /Life & Cash/i })).toBeVisible();
+    await expect(page.getByRole('button', { name: /Cash Burndown/i })).toBeVisible();
+    await expect(page.getByRole('button', { name: /Expected Time Left/i })).toBeVisible();
+  });
 });
