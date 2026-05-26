@@ -1,3 +1,7 @@
+CURRENT GOAL 26.05.2026:
+
+- TO VERIFY CURRENT FRAMEWORK CAPABILITIES AFTER MAJOR CHANGES AND CREATE ALLURE REPORTING
+
 # Playwright + TypeScript
 
 End-to-end tests for [TimeAndMoney_Counter](https://mgadek84.github.io/TimeAndMoney_Counter/) using Playwright and TypeScript.
