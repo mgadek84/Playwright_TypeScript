@@ -1,15 +1,8 @@
-CURRENT GOAL 26.05.2026:
-
-- TO VERIFY CURRENT FRAMEWORK CAPABILITIES AFTER MAJOR CHANGES AND CREATE ALLURE REPORTING
-
 # Playwright + TypeScript
 
-End-to-end tests for [TimeAndMoney_Counter](https://mgadek84.github.io/TimeAndMoney_Counter/) using Playwright and TypeScript.
+E2E test suite for [TimeAndMoney_Counter](https://mgadek84.github.io/TimeAndMoney_Counter/) — Playwright, TypeScript, GitHub Actions CI.
 
-## Prerequisites
-
-- Node.js 18+
-- npm
+Work in progress; learning in public.
 
 ## Setup
 
@@ -18,30 +11,30 @@ npm ci
 npx playwright install chromium
 ```
 
-## Run tests
+## Run
 
 ```bash
 npm test
-npm run test:ui      # interactive UI mode
+npm run test:ui      # interactive mode
 npm run test:headed  # visible browser
-npm run report       # open last HTML report
+npm run report       # HTML report
 ```
 
 ## Structure
 
 | Path | Purpose |
 |------|---------|
-| `tests/home.spec.ts` | Landing page smoke tests |
-| `tests/money.spec.ts` | Cash Burndown flow |
-| `tests/time.spec.ts` | Expected Time Left countdown |
-| `tests/helpers/app.ts` | Shared navigation helpers |
-| `excluded/` | Training specs (not run by default) |
+| `tests/home.spec.ts` | Landing page smoke |
+| `tests/money.spec.ts` | Cash burndown flow |
+| `tests/time.spec.ts` | Time-left countdown |
+| `tests/helpers/app.ts` | Shared helpers |
+| `excluded/` | Practice specs (not in default run) |
 
 ## CI
 
-GitHub Actions runs `npm ci` and `npx playwright test` on push and pull requests.
+GitHub Actions runs tests on push and pull requests.
 
-## Related repos
+## Related
 
-- App under test: [TimeAndMoney_Counter](https://github.com/mgadek84/TimeAndMoney_Counter)
-- Java variant: [Playwright-Java-Maven](https://github.com/mgadek84/Playwright-Java-Maven)
+- [TimeAndMoney_Counter](https://github.com/mgadek84/TimeAndMoney_Counter) — app under test
+- [Playwright-Java-Maven](https://github.com/mgadek84/Playwright-Java-Maven) — Java variant
